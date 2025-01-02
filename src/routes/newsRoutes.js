@@ -7,4 +7,4 @@ router.get('/', newsController.getAllNews);
 router.get('/:id', newsController.getNewsById);
 router.post('/', newsController.createNews);
 
-module.exports = router;
+module.exports = router;    
