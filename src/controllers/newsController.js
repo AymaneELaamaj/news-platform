@@ -6,15 +6,13 @@ const newsController = {
     // Récupérer tous les articles
     async getAllNews(req, res) {
         try {
-            // Requête à l'API DummyJSON
+            console.log('Début de la récupération des articles');
             const response = await axios.get(DUMMY_JSON_URL);
-            const posts = response.data.posts;
-
-            // Envoyer les articles au client
-            res.status(200).json({ posts });
+            console.log('Réponse de l\'API:', response.data);
+            res.status(200).json({ posts: response.data.posts });
         } catch (error) {
             console.error('Erreur lors de la récupération des articles:', error.message);
-            res.status(500).json({ message: 'Erreur serveur' });
+            res.status(500).json({ message: `Erreur serveur: ${error.message}` });
         }
     },
 
