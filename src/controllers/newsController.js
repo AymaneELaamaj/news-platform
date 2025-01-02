@@ -42,23 +42,25 @@ const newsController = {
     async createNews(req, res) {
         try {
             const { title, content } = req.body;
-
+    
             // Vérification des champs obligatoires
             if (!title || !content) {
                 return res.status(400).json({ message: 'Les champs "title" et "content" sont obligatoires' });
             }
-
+    
             // Requête POST à l'API DummyJSON
             const response = await axios.post(DUMMY_JSON_URL, { title, content });
             const newPost = response.data;
-
+    
             // Envoyer l'article créé au client
             res.status(201).json(newPost);
         } catch (error) {
             console.error('Erreur lors de la création de l\'article:', error.message);
+            console.error('Stack trace:', error.stack); // Ajout du stack trace pour plus de détails
             res.status(500).json({ message: 'Erreur serveur' });
         }
     }
+    
 };
 
 module.exports = newsController;
