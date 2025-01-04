@@ -4,66 +4,95 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Créer un Article</title>
+    <!-- Lien vers le fichier CSS externe -->
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+
+    <!-- Lien vers Bootstrap CSS -->
     <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/css/style.css" />
   </head>
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-      <div class="container">
-        <a class="navbar-brand" href="/">News App</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="/news.html">Articles</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="/create.html">Créer</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
 
-    <main class="container mt-4">
-      <h1>Créer un Nouvel Article</h1>
-      <form id="create-article-form" class="mt-4">
-        <div class="mb-3">
-          <label for="title" class="form-label">Titre</label>
+  <body>
+    <div class="container">
+      <h1>Créer un Article</h1>
+
+      <!-- Message d'alerte -->
+      <div id="message" class="alert alert-info" style="display: none"></div>
+
+      <!-- Formulaire de création d'article -->
+      <form id="createForm">
+        <div class="form-group">
+          <label for="title">Titre :</label>
           <input
             type="text"
             class="form-control"
             id="title"
-            placeholder="Entrez le titre de l'article"
+            name="title"
             required
           />
         </div>
-        <div class="mb-3">
-          <label for="content" class="form-label">Contenu</label>
+
+        <div class="form-group">
+          <label for="body">Contenu :</label>
           <textarea
             class="form-control"
-            id="content"
+            id="body"
+            name="body"
             rows="5"
-            placeholder="Écrivez le contenu de l'article"
             required
           ></textarea>
         </div>
+
+        <div class="form-group">
+          <label for="tags">Tags (séparés par des virgules) :</label>
+          <input type="text" class="form-control" id="tags" name="tags" />
+        </div>
+
+        <div class="form-group">
+          <label for="likes">Réactions (likes, dislikes) :</label>
+          <div class="row">
+            <div class="col">
+              <input
+                type="number"
+                class="form-control"
+                id="likes"
+                name="likes"
+                placeholder="Likes"
+              />
+            </div>
+            <div class="col">
+              <input
+                type="number"
+                class="form-control"
+                id="dislikes"
+                name="dislikes"
+                placeholder="Dislikes"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="views">Vues :</label>
+          <input type="number" class="form-control" id="views" name="views" />
+        </div>
+
+        <div class="form-group">
+          <label for="userId">User ID :</label>
+          <input type="number" class="form-control" id="userId" name="userId" />
+        </div>
+
         <button type="submit" class="btn btn-primary">Créer</button>
       </form>
-    </main>
+    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/js/create.js"></script>
-    <!-- Lien vers le fichier create.js -->
+    <!-- Lien vers Bootstrap JS et jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="./js/create.js"></script>
   </body>
 </html>

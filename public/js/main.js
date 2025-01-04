@@ -41,5 +41,7 @@ function showError(message) {
         </div>`;
 }
 
+
 // Initialisation
 document.addEventListener('DOMContentLoaded', fetchLatestNews);
+

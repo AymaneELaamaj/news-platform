@@ -1,62 +1,64 @@
 const axios = require('axios');
 
 const DUMMY_JSON_URL = 'https://dummyjson.com/posts';
+let customPosts = []; // Liste locale pour stocker les articles créés
 
 const newsController = {
-    // Récupérer tous les articles
     async getAllNews(req, res) {
         try {
-            console.log('Début de la récupération des articles');
-            const response = await axios.get(DUMMY_JSON_URL);
-            console.log('Réponse de l\'API:', response.data);
-            res.status(200).json({ posts: response.data.posts });
+            const { data } = await axios.get(DUMMY_JSON_URL); // Récupérer articles externes
+            const allNews = [...data.posts, ...customPosts]; // Fusionner avec articles locaux
+            res.json(allNews);
         } catch (error) {
-            console.error('Erreur lors de la récupération des articles:', error.message);
-            res.status(500).json({ message: `Erreur serveur: ${error.message}` });
-        }
-    },
-
-    // Récupérer un article par ID
-    async getNewsById(req, res) {
-        try {
-            const { id } = req.params;
-
-            // Requête à l'API DummyJSON pour un article spécifique
-            const response = await axios.get(`${DUMMY_JSON_URL}/${id}`);
-            const post = response.data;
-
-            // Vérification si l'article existe
-            if (!post) {
-                return res.status(404).json({ message: 'Article non trouvé' });
-            }
-
-            // Envoyer l'article au client
-            res.status(200).json(post);
-        } catch (error) {
-            console.error('Erreur lors de la récupération de l\'article:', error.message);
+            console.error("Erreur lors de la récupération des articles :", error.message);
             res.status(500).json({ message: 'Erreur serveur' });
         }
     },
 
-    // Créer un nouvel article
+    async getNewsById(req, res) {
+        const { id } = req.params;
+
+        try {
+            // Chercher dans les posts locaux
+            const customPost = customPosts.find(post => post.id === parseInt(id, 10));
+            if (customPost) return res.json(customPost);
+
+            // Sinon, récupérer depuis DummyJSON
+            const { data } = await axios.get(`${DUMMY_JSON_URL}/${id}`);
+            res.json(data);
+        } catch (error) {
+            console.error("Erreur lors de la récupération de l'article :", error.message);
+            res.status(404).json({ message: 'Article non trouvé' });
+        }
+    },
+
     async createNews(req, res) {
         try {
-            const { title, content } = req.body;
+            const { title, body, tags, reactions, views, userId } = req.body;
     
-            // Vérification des champs obligatoires
-            if (!title || !content) {
-                return res.status(400).json({ message: 'Les champs "title" et "content" sont obligatoires' });
+            console.log("Payload reçu :", req.body); // Ajoute cette ligne
+    
+            if (!title || !body) {
+                return res.status(400).json({ message: 'Le titre et le contenu sont requis.' });
             }
     
-            // Requête POST à l'API DummyJSON
-            const response = await axios.post(DUMMY_JSON_URL, { title, content });
-            const newPost = response.data;
+            // Générer un nouvel ID basé sur les posts existants
+            const newId = customPosts.length ? customPosts[customPosts.length - 1].id + 1 : 101;
     
-            // Envoyer l'article créé au client
+            const newPost = {
+                id: newId,
+                title,
+                body,
+                tags: tags || [],
+                reactions: reactions || { likes: 0, dislikes: 0 },
+                views: views || 0,
+                userId: userId || 1,
+            };
+    
+            customPosts.push(newPost);
             res.status(201).json(newPost);
         } catch (error) {
-            console.error('Erreur lors de la création de l\'article:', error.message);
-            console.error('Stack trace:', error.stack); // Ajout du stack trace pour plus de détails
+            console.error("Erreur dans createNews :", error); // Ajoute cette ligne
             res.status(500).json({ message: 'Erreur serveur' });
         }
     }

@@ -1,4 +1,3 @@
-// Attendre que le DOM soit complètement chargé
 document.addEventListener("DOMContentLoaded", async () => {
     const newsContainer = document.getElementById("news-container");
 
@@ -10,7 +9,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
 
         const data = await response.json();
-        const posts = data.posts;
+        console.log(data); // Affiche la réponse complète pour vérifier la structure
+
+        // Supposons que data est un tableau d'articles
+        const posts = Array.isArray(data) ? data : [];
 
         // Générer le contenu HTML pour chaque article
         newsContainer.innerHTML = posts.map(post => `
@@ -19,6 +21,10 @@ document.addEventListener("DOMContentLoaded", async () => {
                     <div class="card-body">
                         <h5 class="card-title">${post.title}</h5>
                         <p class="card-text">${post.body}</p>
+                        <p class="card-text"><strong>Tags:</strong> ${post.tags.join(", ")}</p>
+                        <p class="card-text"><strong>Likes:</strong> ${post.reactions.likes}</p>
+                        <p class="card-text"><strong>Dislikes:</strong> ${post.reactions.dislikes}</p>
+                        <p class="card-text"><strong>Views:</strong> ${post.views}</p>
                         <a href="#" class="btn btn-primary">Lire plus</a>
                     </div>
                 </div>
