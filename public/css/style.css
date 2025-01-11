@@ -69,3 +69,98 @@ button i {
     transform: translateY(0);
   }
 }
+/* Navbar */
+.navbar {
+  background-color: #343a40;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #ff69b4;
+}
+
+.navbar-nav .nav-link {
+  font-size: 1.1rem;
+  color: #ffffff;
+  transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #ff69b4;
+}
+
+/* Hero Section */
+header {
+  background: linear-gradient(135deg, #ff69b4, #2575fc);
+  color: #fff;
+}
+
+header h1 {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+header p {
+  font-size: 1.2rem;
+  margin-top: 20px;
+}
+
+/* Articles Section */
+.article-card {
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out;
+}
+
+.article-card:hover {
+  transform: translateY(-5px);
+}
+
+.article-card img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  max-height: 200px;
+}
+
+.article-card .card-body {
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+.article-card .card-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.article-card .card-text {
+  color: #6c757d;
+  font-size: 1rem;
+}
+
+/* Footer */
+footer {
+  background-color: #343a40;
+  text-align: center;
+  color: #fff;
+  padding: 30px 0;
+}
+
+footer p {
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Responsiveness */
+@media (max-width: 767px) {
+  header h1 {
+    font-size: 2.5rem;
+  }
+
+  .article-card {
+    margin-bottom: 20px;
+  }
+}
